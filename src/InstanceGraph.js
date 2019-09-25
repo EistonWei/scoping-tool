@@ -1,26 +1,38 @@
 import React, { useState } from 'react';
-import {XYPlot, LineSeries} from 'react-vis';
+import { VictoryLine, VictoryChart, VictoryAxis, VictoryContainer,
+        VictoryTheme } from 'victory'
 import {Card} from 'antd';
 
 const InstanceGraph = props => {
     const data = [
-        {x: 0, y: 8},
-        {x: 1, y: 5},
-        {x: 2, y: 4},
-        {x: 3, y: 9},
-        {x: 4, y: 1},
-        {x: 5, y: 7},
-        {x: 6, y: 6},
-        {x: 7, y: 3},
-        {x: 8, y: 2},
-        {x: 9, y: 0}
+        {quarter: 1, earnings: 13000},
+        {quarter: 2, earnings: 16500},
+        {quarter: 3, earnings: 14250},
+        {quarter: 4, earnings: 19000}
       ];
       return (
         <Card style={{height:props.hidden?'0':'42vh' }}>
-            <div>
-            <XYPlot height={300} width={300}>
-            <LineSeries data={data} />
-            </XYPlot>
+            <div style={{height:props.hidden?'0':'42vh' }}>
+            <VictoryChart
+                theme={VictoryTheme.material}
+                domainPadding={20}
+                height={300}
+                containerComponent={<VictoryContainer responsive={false}/>}
+            >
+                <VictoryAxis
+                tickValues={[1, 2, 3, 4]}
+                tickFormat={["Quarter 1", "Quarter 2", "Quarter 3", "Quarter 4"]}
+                />
+                <VictoryAxis
+                dependentAxis
+                tickFormat={(x) => (`$${x / 1000}k`)}
+                />
+                <VictoryLine
+                data={data}
+                x="quarter"
+                y="earnings"
+                />
+            </VictoryChart>
             </div>
         </Card>
       )

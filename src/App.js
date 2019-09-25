@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import {Layout, Menu, Breadcrumb, Icon, Row, Col, Button, Select} from 'antd'
+import {Layout, Menu, Icon, Row, Col, Button, Select} from 'antd'
 import './App.css';
 import 'antd/dist/antd.css';
 import InstanceCards from './InstanceCards'
@@ -13,9 +13,14 @@ function App() {
   const [collapsed, setCollapsed] = useState(true);
   const [columes, setColumes] = useState('3');
   const [dataView, setDataView] = useState(false)
+  const [smallQuestion, setSmallQuestion] = useState(false)
   const setDataViewFun = () => {
     dataView?setColumes('3'):setColumes('1')
     setDataView(!dataView)
+  }
+  const submitFun = () => {
+    setColumes('1')
+    setDataView(true)
   }
   return (
     <Layout style={{ minHeight: '100vh' }}>
@@ -65,12 +70,12 @@ function App() {
           </Col>
           <Col span={dataView?16:12}>
             <div style={{align: 'right',marginBottom: '16px',textAlign:'right'}}>
-              <Button shape="circle" icon="bars" type="default"style={{marginRight:'8px'}}/>
+              <Button shape="circle" icon="bars" type="default"style={{marginRight:'8px'}} onClick={()=>setSmallQuestion(!smallQuestion)}/>
               <Button shape="circle" icon="area-chart" type="default"style={{marginRight:'8px'}} onClick={setDataViewFun}/>
-              <Button shape="round" icon="check" type="primary">Submit</Button>
+              <Button shape="round" icon="check" type="primary" onClick={submitFun}>Submit</Button>
             </div>
             <InstanceGraph hidden={!dataView}/>
-            <InstanceQuestions half={dataView}/>
+            <InstanceQuestions half={dataView} isSmall={smallQuestion}/>
           </Col>
         </Row>
 

@@ -22,13 +22,28 @@ const formItems = listData.map((k, index) => (
         type="info-circle"/>
     </Form.Item>
   ));
+  const formItemsSmall = listData.map((k, index) => (
+    <Form.Item
+    label={k.name}
+    required={false}
+    key={index}
+    labelCol= {{ span: '10' }}
+    wrapperCol= {{ span: '14' }}
+    style={{marginBottom: 8 }}
+    >
+    <Input defaultValue={k.default_value}
+        style={{ width: '90%', marginRight: 8 }} />
+    <Icon
+        type="info-circle"/>
+    </Form.Item>
+  ));
 const InstanceQuestions = props => {
     return (
         <div>
-            <Card size='small' title="Quesions">
+            <Card size='small' title={props.isSmall?"Values":"Questions"}>
                 <div style={{overflow: 'auto',height:props.half?'42vh':'85vh'}}>
                 <Form gutter='8'>
-                    {formItems}
+                    {props.isSmall?formItemsSmall:formItems}
                 </Form>
                 </div>
             </Card>

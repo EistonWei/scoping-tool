@@ -20,20 +20,27 @@ const data = [
       title: 'Cost 6',
     },
   ];
+  const cards = data.map((item, index) => (
+    <List.Item
+    key={index}
+    >
+      <Card 
+      bordered
+      hoverable>
+        <Statistic title={item.title} value={234234.23423} precision={2} />
+      </Card>
+    </List.Item>
+  ));
 const InstanceCostList = props => {
     return (
         <List
-        style={{background:"#fff", marginTop:"50px"}}
-        dataSource={data}
-        size="large"
-        footer={<div>All Costs</div>}
-        bordered
-        renderItem={(item,index) => (
-            <List.Item>
-            {item.title}
-            </List.Item>
-        )}
-        />
+        grid={{ gutter: 16, column: 1 }}
+        style={{marginTop:"50px"}}
+        >
+        <div style={{overflow: 'auto',height:'90vh'}}>
+            {cards}
+        </div> 
+        </List>
     )
 }
 export default InstanceCostList;
